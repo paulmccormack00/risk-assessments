@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand — Informatica Orange */
+  --color-brand: #E23400;
+  --color-brand-light: #FFF5F2;
+  --color-brand-mid: #FFE0D6;
+  --color-brand-hover: #C02E00;
+  --color-brand-dark: #8B1F00;
+
+  /* Nav — Dark Blue */
+  --color-nav-bg: #0047BA;
+  --color-nav-hover: #1E397C;
+
+  /* Accent — Teal */
+  --color-accent: #12C2E5;
+
+  /* Surface */
+  --color-surface-bg: #F8F9FA;
+  --color-surface-card: #FFFFFF;
+  --color-surface-border: #e2e0dc;
+  --color-surface-border-light: #f0ede8;
+
+  /* Text */
+  --color-text-primary: #101820;
+  --color-text-muted: #63666A;
+  --color-text-light: #94a3b8;
+
+  /* Status */
+  --color-status-green: #059669;
+  --color-status-green-light: #ECFDF5;
+  --color-status-amber: #D97706;
+  --color-status-amber-light: #FFFBEB;
+  --color-status-red: #DC2626;
+  --color-status-red-light: #FEF2F2;
+  --color-status-blue: #2563EB;
+  --color-status-blue-light: #EFF6FF;
+}
+
+@theme inline {
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-surface-bg);
+  color: var(--color-text-primary);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c4c4c4; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #999; }
+
+.shadow-card {
+  box-shadow: 0 1px 3px rgba(30, 58, 95, 0.08);
+}
