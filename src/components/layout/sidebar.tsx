@@ -4,10 +4,10 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   LayoutDashboard, Building2, Server, GitBranch,
-  FileText, ShieldCheck, CheckSquare,
+  FileText, ShieldCheck, CheckSquare, Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { APP_NAME, NAV_ITEMS } from "@/lib/constants";
+import { APP_NAME, NAV_ITEMS, type ModuleId } from "@/lib/constants";
 
 const iconMap: Record<string, React.ReactNode> = {
   LayoutDashboard: <LayoutDashboard size={18} />,
@@ -17,10 +17,23 @@ const iconMap: Record<string, React.ReactNode> = {
   FileText: <FileText size={18} />,
   ShieldCheck: <ShieldCheck size={18} />,
   CheckSquare: <CheckSquare size={18} />,
+  Settings: <Settings size={18} />,
 };
 
-export function Sidebar() {
+interface SidebarProps {
+  enabledModules?: ModuleId[];
+}
+
+export function Sidebar({ enabledModules }: SidebarProps) {
   const pathname = usePathname();
+
+  const visibleNavItems = NAV_ITEMS.filter((item) => {
+    // Dashboard and Settings are always visible
+    if (item.module === null) return true;
+    // If no enabledModules passed, show all
+    if (!enabledModules) return true;
+    return enabledModules.includes(item.module);
+  });
 
   return (
     <aside className="w-60 bg-nav-bg flex flex-col h-screen shrink-0">
@@ -40,7 +53,7 @@ export function Sidebar() {
       {/* Nav Items */}
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
         <div className="space-y-0.5">
-          {NAV_ITEMS.map((item) => {
+          {visibleNavItems.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
               <Link

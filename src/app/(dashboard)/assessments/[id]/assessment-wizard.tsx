@@ -7,7 +7,7 @@ import {
   ArrowLeft, ArrowRight, Check, AlertTriangle,
   Loader2, CheckCircle, ShieldCheck, BarChart3,
   RefreshCw, RotateCcw, BadgeCheck, Plus, X,
-  ChevronDown, ChevronUp, HelpCircle,
+  ChevronDown, ChevronUp, HelpCircle, Settings,
 } from "lucide-react";
 import {
   updateAssessmentResponses, completeAssessment,
@@ -16,6 +16,9 @@ import {
   reopenAssessment, redoAssessment, validateAssessment,
   getAssessmentLinkedRecords,
 } from "../actions";
+import {
+  addOptionToList, updateOptionInList, deleteOptionFromList,
+} from "../option-list-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -65,11 +68,18 @@ interface Assessment {
   } | null;
 }
 
+interface EditableOption {
+  id: string;
+  label: string;
+  is_default: boolean;
+}
+
 interface Props {
   assessment: Assessment;
   entities: { id: string; name: string }[];
   systems: { id: string; name: string }[];
   processingActivities: { id: string; activity: string }[];
+  editableOptions?: Record<string, EditableOption[]>;
 }
 
 // --- Module activation rules ---
@@ -108,96 +118,90 @@ interface RiskBreakdown {
   factors: { label: string; questionId: string; contribution: number; severity: "high" | "medium" | "low"; reason: string }[];
 }
 
+// Default risk scoring configuration — can be overridden via settings
+const DEFAULT_RISK_FACTORS: RiskFactor[] = [
+  { id: "E2", label: "Personal data processing", points: 20, severity: "medium", condition: "equals:Yes", reason: "Processing personal data triggers GDPR obligations." },
+  { id: "E4", label: "AI/ML system involvement", points: 25, severity: "high", condition: "equals:Yes", reason: "AI/ML involvement triggers EU AI Act obligations and GDPR Art.22 safeguards." },
+  { id: "E8", label: "Sensitive or critical infrastructure data", points: 15, severity: "medium", condition: "equals:Yes", reason: "Sensitive data categories (Art.9) or critical infrastructure require enhanced safeguards." },
+  { id: "E3", label: "Cross-border data transfers", points: 15, severity: "medium", condition: "includes:To other countries", reason: "International transfers require valid mechanisms under Art.44-49." },
+  { id: "DP.2", label: "Special category data processed", points: 20, severity: "high", condition: "not_equals:No", reason: "Special category data is prohibited under Art.9 unless an explicit exception applies." },
+  { id: "DP.9", label: "Solely automated decision-making", points: 15, severity: "high", condition: "equals:Yes", reason: "Automated decisions with legal or significant effects trigger GDPR Art.22 rights." },
+  { id: "VR.3", label: "No DPA in place", points: 15, severity: "high", condition: "equals:No", reason: "Vendor processing personal data without a Data Processing Agreement violates Art.28." },
+  { id: "TIA.4", label: "Government access risk", points: 20, severity: "high", condition: "equals:High", reason: "High government surveillance risk in recipient country undermines transfer safeguards." },
+  { id: "DP.10", label: "Residual risk self-assessment", points: 0, severity: "medium", condition: "variable", reason: "Self-assessed residual risk level." },
+];
+
+const DEFAULT_THRESHOLDS = { high: 60, medium: 30 };
+
+interface RiskFactor {
+  id: string;
+  label: string;
+  points: number;
+  severity: "high" | "medium" | "low";
+  condition: string;
+  reason: string;
+}
+
 function computeRiskDetailed(responses: Record<string, unknown>): RiskBreakdown {
   const factors: RiskBreakdown["factors"] = [];
   let totalRisk = 0;
-  let questions = 0;
 
-  if (responses["E2"] === "Yes") {
-    totalRisk += 20; questions++;
-    factors.push({
-      label: "Personal data processing",
-      questionId: "E2",
-      contribution: 20,
-      severity: "medium",
-      reason: "Processing personal data triggers GDPR obligations.",
-    });
-  }
-  if (responses["E4"] === "Yes") {
-    totalRisk += 25; questions++;
-    factors.push({
-      label: "AI/ML system involvement",
-      questionId: "E4",
-      contribution: 25,
-      severity: "high",
-      reason: "AI/ML involvement triggers EU AI Act obligations and GDPR Art.22 safeguards.",
-    });
-  }
-  if (responses["E8"] === "Yes") {
-    totalRisk += 15; questions++;
-    factors.push({
-      label: "Sensitive or critical infrastructure data",
-      questionId: "E8",
-      contribution: 15,
-      severity: "medium",
-      reason: "Sensitive data categories (Art.9) or critical infrastructure require enhanced safeguards.",
-    });
-  }
-  const e3 = responses["E3"];
-  if (Array.isArray(e3) && e3.includes("To other countries")) {
-    totalRisk += 20; questions++;
-    factors.push({
-      label: "Cross-border data transfers",
-      questionId: "E3",
-      contribution: 20,
-      severity: "medium",
-      reason: "International transfers require valid mechanisms under Art.44-49.",
-    });
-  }
-  if (responses["DP.2"] && responses["DP.2"] !== "No") {
-    totalRisk += 20; questions++;
-    factors.push({
-      label: "Special category data processed",
-      questionId: "DP.2",
-      contribution: 20,
-      severity: "high",
-      reason: "Special category data is prohibited under Art.9 unless an explicit exception applies.",
-    });
-  }
-  if (responses["DP.9"] === "Yes") {
-    totalRisk += 15; questions++;
-    factors.push({
-      label: "Solely automated decision-making",
-      questionId: "DP.9",
-      contribution: 15,
-      severity: "high",
-      reason: "Automated decisions with legal or significant effects trigger GDPR Art.22 rights.",
-    });
-  }
-  if (responses["DP.10"]) {
-    const level = responses["DP.10"] as string;
-    const rMap: Record<string, number> = { Low: 5, Medium: 15, High: 25 };
-    const val = rMap[level] || 10;
-    totalRisk += val; questions++;
-    const severityMap: Record<string, "high" | "medium" | "low"> = { High: "high", Medium: "medium", Low: "low" };
-    factors.push({
-      label: `Residual risk: ${level}`,
-      questionId: "DP.10",
-      contribution: val,
-      severity: severityMap[level] || "medium",
-      reason: `Self-assessed residual risk is "${level}".${level === "High" ? " Consultation with supervisory authority required (Art.36)." : ""}`,
-    });
+  for (const factor of DEFAULT_RISK_FACTORS) {
+    const val = responses[factor.id];
+    if (val === undefined || val === null || val === "") continue;
+
+    // Special handling for DP.10 (variable points)
+    if (factor.condition === "variable") {
+      const level = val as string;
+      const rMap: Record<string, number> = { Low: 5, Medium: 15, High: 25 };
+      const pts = rMap[level];
+      if (pts !== undefined) {
+        totalRisk += pts;
+        const severityMap: Record<string, "high" | "medium" | "low"> = { High: "high", Medium: "medium", Low: "low" };
+        factors.push({
+          label: `Residual risk: ${level}`,
+          questionId: factor.id,
+          contribution: pts,
+          severity: severityMap[level] || "medium",
+          reason: `${factor.reason}${level === "High" ? " Consultation with supervisory authority required (Art.36)." : ""}`,
+        });
+      }
+      continue;
+    }
+
+    let triggered = false;
+    if (factor.condition.startsWith("equals:")) {
+      triggered = val === factor.condition.slice(7);
+    } else if (factor.condition.startsWith("not_equals:")) {
+      triggered = val !== factor.condition.slice(11) && val !== "";
+    } else if (factor.condition.startsWith("includes:")) {
+      triggered = Array.isArray(val) && val.includes(factor.condition.slice(9));
+    }
+
+    if (triggered) {
+      totalRisk += factor.points;
+      factors.push({
+        label: factor.label,
+        questionId: factor.id,
+        contribution: factor.points,
+        severity: factor.severity,
+        reason: factor.reason,
+      });
+    }
   }
 
-  const score = questions > 0 ? Math.min(100, Math.round(totalRisk / questions * 4)) : 0;
-  const classification = score >= 75 ? "high" : score >= 40 ? "medium" : "low";
+  const score = Math.min(100, totalRisk);
+  const classification = score >= DEFAULT_THRESHOLDS.high ? "high" : score >= DEFAULT_THRESHOLDS.medium ? "medium" : "low";
 
   return { score, classification, factors };
 }
 
 // --- Main Component ---
 
-export function AssessmentWizard({ assessment, entities, systems, processingActivities }: Props) {
+// Questions that support editable option lists
+const EDITABLE_QUESTIONS = new Set(["E6", "CN.1"]);
+
+export function AssessmentWizard({ assessment, entities, systems, processingActivities, editableOptions }: Props) {
   const router = useRouter();
   const [responses, setResponses] = useState<Record<string, unknown>>(
     (assessment.responses as Record<string, unknown>) || {}
@@ -891,6 +895,7 @@ export function AssessmentWizard({ assessment, entities, systems, processingActi
                       disabled={isCompleted}
                       expandedHelp={expandedHelp}
                       onToggleHelp={setExpandedHelp}
+                      editableOptions={EDITABLE_QUESTIONS.has(q.id) ? editableOptions?.[q.id] : undefined}
                     />
                   ))}
               </div>
@@ -952,6 +957,7 @@ function QuestionField({
   disabled,
   expandedHelp,
   onToggleHelp,
+  editableOptions,
 }: {
   question: Question;
   value: unknown;
@@ -959,28 +965,42 @@ function QuestionField({
   disabled: boolean;
   expandedHelp: string | null;
   onToggleHelp: (id: string | null) => void;
+  editableOptions?: EditableOption[];
 }) {
   const stringValue = typeof value === "string" ? value : "";
   const arrayValue = Array.isArray(value) ? value : [];
   const showHelp = expandedHelp === question.id;
 
+  // Use editable options if available, otherwise fall back to static options from the question
+  const effectiveOptions = editableOptions
+    ? editableOptions.map((o) => o.label)
+    : question.options || [];
+
   return (
-    <div className="group">
+    <div className="group relative">
       <div className="flex items-start gap-2 mb-1.5">
         <label className="text-xs font-medium text-text-primary flex-1">
           <span className="text-[10px] text-text-light mr-1.5">{question.id}</span>
           {question.text}
         </label>
-        {question.help_text && (
-          <button
-            type="button"
-            onClick={() => onToggleHelp(showHelp ? null : question.id)}
-            className="text-text-light hover:text-brand transition-colors cursor-pointer shrink-0 mt-0.5"
-            title="Show help"
-          >
-            <HelpCircle size={13} />
-          </button>
-        )}
+        <div className="flex items-center gap-1 shrink-0">
+          {editableOptions && !disabled && (
+            <EditableOptionsManager
+              questionId={question.id}
+              options={editableOptions}
+            />
+          )}
+          {question.help_text && (
+            <button
+              type="button"
+              onClick={() => onToggleHelp(showHelp ? null : question.id)}
+              className="text-text-light hover:text-brand transition-colors cursor-pointer mt-0.5"
+              title="Show help"
+            >
+              <HelpCircle size={13} />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Help text */}
@@ -996,7 +1016,25 @@ function QuestionField({
       )}
 
       {/* Input based on question type */}
-      {question.type === "select" && question.options && question.options.length > 0 ? (
+      {question.type === "yes_no" && effectiveOptions.length > 0 ? (
+        <div className="flex gap-2">
+          {effectiveOptions.map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => { if (!disabled) onChange(opt); }}
+              disabled={disabled}
+              className={`flex-1 px-4 py-2 rounded-md border text-sm font-medium transition-colors ${
+                stringValue === opt
+                  ? "bg-brand text-white border-brand"
+                  : "border-surface-border hover:bg-gray-50 text-text-primary"
+              } ${disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}`}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      ) : question.type === "select" && effectiveOptions.length > 0 ? (
         <select
           value={stringValue}
           onChange={(e) => onChange(e.target.value)}
@@ -1004,13 +1042,13 @@ function QuestionField({
           className="w-full px-3 py-2 rounded-md border border-surface-border text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 disabled:bg-gray-50 disabled:text-text-muted"
         >
           <option value="">-- Select --</option>
-          {question.options.map((opt) => (
+          {effectiveOptions.map((opt) => (
             <option key={opt} value={opt}>{opt}</option>
           ))}
         </select>
-      ) : question.type === "multi_select" && question.options && question.options.length > 0 ? (
+      ) : question.type === "multi_select" && effectiveOptions.length > 0 ? (
         <div className="space-y-1.5">
-          {question.options.map((opt) => (
+          {effectiveOptions.map((opt) => (
             <label
               key={opt}
               className={`flex items-center gap-2.5 px-3 py-1.5 rounded-md border transition-colors text-xs ${
@@ -1062,5 +1100,156 @@ function QuestionField({
         />
       )}
     </div>
+  );
+}
+
+// --- Editable Options Manager (inline CRUD for option lists) ---
+
+function EditableOptionsManager({
+  questionId,
+  options,
+}: {
+  questionId: string;
+  options: EditableOption[];
+}) {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [localOptions, setLocalOptions] = useState(options);
+  const [newLabel, setNewLabel] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editLabel, setEditLabel] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  async function handleAdd() {
+    if (!newLabel.trim() || saving) return;
+    setSaving(true);
+    const result = await addOptionToList(questionId, newLabel.trim());
+    setSaving(false);
+    if (result.data) {
+      setLocalOptions([...localOptions, { id: result.data.id, label: result.data.label, is_default: false }]);
+      setNewLabel("");
+      router.refresh();
+    }
+  }
+
+  async function handleUpdate(id: string) {
+    if (!editLabel.trim() || saving) return;
+    setSaving(true);
+    const result = await updateOptionInList(id, editLabel.trim());
+    setSaving(false);
+    if (!result.error) {
+      setLocalOptions(localOptions.map((o) => o.id === id ? { ...o, label: editLabel.trim() } : o));
+      setEditingId(null);
+      router.refresh();
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (saving) return;
+    setSaving(true);
+    const result = await deleteOptionFromList(id);
+    setSaving(false);
+    if (!result.error) {
+      setLocalOptions(localOptions.filter((o) => o.id !== id));
+      router.refresh();
+    }
+  }
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="text-text-light hover:text-brand transition-colors cursor-pointer mt-0.5"
+        title="Edit options list"
+      >
+        <Settings size={13} />
+      </button>
+    );
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(false)}
+        className="text-brand hover:text-brand-hover transition-colors cursor-pointer mt-0.5"
+        title="Close editor"
+      >
+        <Settings size={13} />
+      </button>
+      <div className="absolute right-0 top-6 z-20 w-72 bg-white border border-surface-border rounded-lg shadow-lg p-3">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs font-semibold text-text-primary">Edit Options</span>
+          <button type="button" onClick={() => setOpen(false)} className="text-text-light hover:text-text-primary cursor-pointer">
+            <X size={12} />
+          </button>
+        </div>
+
+        <div className="space-y-1 max-h-48 overflow-auto mb-2">
+          {localOptions.map((opt) => (
+            <div key={opt.id} className="flex items-center gap-1.5">
+              {editingId === opt.id ? (
+                <>
+                  <input
+                    type="text"
+                    value={editLabel}
+                    onChange={(e) => setEditLabel(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleUpdate(opt.id)}
+                    className="flex-1 px-2 py-1 rounded border border-brand text-xs focus:outline-none"
+                    autoFocus
+                  />
+                  <button type="button" onClick={() => handleUpdate(opt.id)} className="text-green-600 hover:text-green-700 cursor-pointer" disabled={saving}>
+                    <Check size={12} />
+                  </button>
+                  <button type="button" onClick={() => setEditingId(null)} className="text-text-light hover:text-text-primary cursor-pointer">
+                    <X size={12} />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="flex-1 text-xs text-text-primary truncate">{opt.label}</span>
+                  <button
+                    type="button"
+                    onClick={() => { setEditingId(opt.id); setEditLabel(opt.label); }}
+                    className="text-text-light hover:text-brand cursor-pointer opacity-0 group-hover:opacity-100"
+                    style={{ opacity: 1 }}
+                  >
+                    <RefreshCw size={10} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(opt.id)}
+                    className="text-text-light hover:text-red-500 cursor-pointer"
+                    disabled={saving}
+                  >
+                    <X size={10} />
+                  </button>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="flex gap-1.5">
+          <input
+            type="text"
+            value={newLabel}
+            onChange={(e) => setNewLabel(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+            placeholder="Add new option..."
+            className="flex-1 px-2 py-1 rounded border border-surface-border text-xs focus:outline-none focus:ring-1 focus:ring-brand/20"
+          />
+          <button
+            type="button"
+            onClick={handleAdd}
+            disabled={!newLabel.trim() || saving}
+            className="px-2 py-1 bg-brand text-white rounded text-xs font-medium disabled:opacity-50 cursor-pointer hover:bg-brand-hover"
+          >
+            <Plus size={10} />
+          </button>
+        </div>
+      </div>
+    </>
   );
 }

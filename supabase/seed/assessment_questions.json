@@ -1,0 +1,3118 @@
+[
+  {
+    "id": "E1",
+    "module": "Entry",
+    "question_text": "What is the nature of this assessment?",
+    "question_type": "select",
+    "options": [
+      "New vendor",
+      "New system",
+      "New processing activity",
+      "Change to existing",
+      "Periodic review"
+    ],
+    "logic_skip": "Determines scope",
+    "prefill_source": "Manual",
+    "legal_basis": "General – scoping/triage",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM",
+      "TIA",
+      "LIA",
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 1,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "Select the reason you're starting this assessment. 'Change to existing' covers modifications to systems, vendors, or processing activities already in place.",
+    "suggestions": []
+  },
+  {
+    "id": "E2",
+    "module": "Entry",
+    "question_text": "Does this involve processing personal data?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → DPIA module activates",
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.2, Art.4(2) – material scope",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "VENDOR"
+    ],
+    "display_order": 2,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "Personal data means any information relating to an identified or identifiable person — names, emails, IDs, IP addresses, location data, etc. If in doubt, select 'Yes'.",
+    "suggestions": []
+  },
+  {
+    "id": "E3",
+    "module": "Entry",
+    "question_text": "Will personal data be transferred across borders?",
+    "question_type": "multi_select",
+    "options": [
+      "No cross-border transfer",
+      "Within same jurisdiction only",
+      "To other countries"
+    ],
+    "logic_skip": "Cross-border transfers → TIA module activates",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.44 – principle for transfers; equivalent provisions in UK GDPR, LGPD, PIPL, PIPA, PDPA etc.",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "TIA",
+      "VENDOR"
+    ],
+    "display_order": 3,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "A cross-border transfer occurs when personal data is sent to, accessed from, or stored in a different country from where it was collected. This includes cloud hosting in another region, remote access, and analytics services. Select 'To other countries' to specify exact destinations — we will assess adequacy status and transfer requirements for each country automatically.",
+    "suggestions": []
+  },
+  {
+    "id": "E4",
+    "module": "Entry",
+    "question_text": "Does this involve AI or machine learning?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → AI Act modules activate",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.2 – scope",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 4,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "AI/ML includes any system that learns from data, makes predictions, classifies information, generates content, or automates decisions. This covers chatbots, recommendation engines, scoring models, and generative AI.",
+    "suggestions": []
+  },
+  {
+    "id": "E5",
+    "module": "Entry",
+    "question_text": "Where are affected persons located?",
+    "question_type": "multi_select",
+    "options": [
+      "EU/EEA",
+      "UK",
+      "US",
+      "Other"
+    ],
+    "logic_skip": "EU/EEA → Full EU AI Act applies; UK → UK framework",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.2(1); GDPR Art.3 – territorial scope",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM",
+      "TIA"
+    ],
+    "display_order": 5,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "'Affected persons' means people whose personal data is processed or whose rights and interests are impacted by this system — e.g. employees screened by it, customers scored by it, or members of the public subject to its decisions.",
+    "suggestions": []
+  },
+  {
+    "id": "E6",
+    "module": "Entry",
+    "question_text": "Primary business function?",
+    "question_type": "select",
+    "options": [
+      "HR",
+      "Sales",
+      "Marketing",
+      "Service",
+      "Finance",
+      "Ops",
+      "IT",
+      "Legal",
+      "Product"
+    ],
+    "logic_skip": "HR → Annex III.4 scrutiny",
+    "prefill_source": "Process template",
+    "legal_basis": "General – routing/classification",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "FRIA",
+      "VENDOR"
+    ],
+    "display_order": 6,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "Select the main business function that owns or uses this system. This helps route the assessment to the right specialist questions.",
+    "suggestions": []
+  },
+  {
+    "id": "E7",
+    "module": "Entry",
+    "question_text": "Is a third-party vendor/provider involved?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No",
+      "Not sure yet"
+    ],
+    "logic_skip": "YES → Vendor modules activate",
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.28; EU AI Act Art.25",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "VENDOR"
+    ],
+    "display_order": 7,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "A third-party vendor includes any external company providing software, cloud services, data processing, or AI models used in this system.",
+    "suggestions": []
+  },
+  {
+    "id": "E8",
+    "module": "Entry",
+    "question_text": "Does this system/process handle sensitive or critical data/infrastructure?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → Cyber module activates",
+    "prefill_source": "Manual",
+    "legal_basis": "NIS2 Art.21; GDPR Art.32",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "CYBER"
+    ],
+    "display_order": 8,
+    "is_active": true,
+    "module_id": "entry",
+    "help_text": "'Sensitive' data includes GDPR Art.9 special categories (health, biometrics, racial origin, political opinions, etc.). 'Critical' infrastructure means systems whose disruption would significantly impact essential services (energy, transport, health, finance) under NIS2.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.1",
+    "module": "Affected Persons",
+    "question_text": "Who is affected by this system/processing?",
+    "question_type": "multi_select",
+    "options": [
+      "Applicants",
+      "Employees",
+      "Contractors",
+      "Customers",
+      "Students",
+      "Patients",
+      "Public",
+      "Minors"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Process template",
+    "legal_basis": "GDPR Art.35(7)(a); EU AI Act Art.27(1)(c); EU Charter Art.1",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM",
+      "CYBER"
+    ],
+    "display_order": 9,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "Select all groups of people affected by this system. 'Applicants' = people applying for jobs, loans, or services. 'Public' = general population who may encounter the system (e.g. in public spaces). 'Minors' = anyone under 18.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.2",
+    "module": "Affected Persons",
+    "question_text": "How are they affected? (describe impact on rights/opportunities)",
+    "question_type": "free_text",
+    "options": [
+      "[Describe impact]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Auto-generated",
+    "legal_basis": "GDPR Art.35(7)(c); EU AI Act Art.27(1)(d)",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 10,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "Describe how this system affects people's rights or opportunities. Examples: determines eligibility for services, influences hiring decisions, restricts access to information, monitors behaviour.",
+    "suggestions": [
+      "Determines eligibility for services or benefits",
+      "Influences hiring or employment decisions",
+      "Affects access to education or training",
+      "Restricts or filters access to information",
+      "Monitors behaviour or performance",
+      "Generates profiles or risk scores"
+    ]
+  },
+  {
+    "id": "CN.3",
+    "module": "Affected Persons",
+    "question_text": "How many persons affected annually?",
+    "question_type": "select",
+    "options": [
+      "<100",
+      "100–1K",
+      "1K–10K",
+      "10K–100K",
+      ">100K"
+    ],
+    "logic_skip": "Higher = higher risk",
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Recital 91 – large scale; EU AI Act Art.27(1)(c)",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 11,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "Estimate the number of individuals whose data is processed or who are directly affected by this system's decisions each year. Higher numbers generally indicate higher risk.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.4",
+    "module": "Non-Discrimination",
+    "question_text": "Risk of discriminatory outcomes?",
+    "question_type": "select",
+    "options": [
+      "Low",
+      "Medium",
+      "Medium-High",
+      "High"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Auto-calculated",
+    "legal_basis": "EU Charter Art.21; EU AI Act Art.9(2)(a); GDPR Art.35(7)(c)",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "HR / Function Lead",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 12,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "Consider: (a) Are protected characteristics involved (age, gender, race, disability)? (b) Does the system make differential decisions about people? (c) Could historical bias in training data cause unfair outcomes? (d) Could certain groups be disproportionately impacted?",
+    "suggestions": []
+  },
+  {
+    "id": "CN.5",
+    "module": "Non-Discrimination",
+    "question_text": "Which protected characteristics may be at risk?",
+    "question_type": "multi_select",
+    "options": [
+      "Gender",
+      "Age",
+      "Race/Ethnicity",
+      "Disability",
+      "Religion",
+      "Sexual Orientation",
+      "Nationality",
+      "Pregnancy",
+      "Socioeconomic"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Process template",
+    "legal_basis": "EU Charter Art.21(1); GDPR Art.9(1); Equality Directives 2000/43/EC, 2000/78/EC",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "HR / Function Lead",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 13,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "Select any protected characteristic that the system's decisions could disproportionately affect — even indirectly. For example, a postcode-based model may indirectly discriminate by race or socioeconomic status.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.6",
+    "module": "Non-Discrimination",
+    "question_text": "Has bias examination been performed?",
+    "question_type": "select",
+    "options": [
+      "Yes – documented",
+      "Yes – no issues found",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.10(2)(f) – bias examination; Art.9(6) – testing",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 14,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "A bias examination involves systematic testing for unfair outcomes across different demographic groups. 'Documented' means formal test results exist. 'Unknown' is acceptable for vendor-supplied systems where you haven't yet requested this information.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.7",
+    "module": "Non-Discrimination",
+    "question_text": "What bias prevention/mitigation measures are in place?",
+    "question_type": "free_text",
+    "options": [
+      "[Re-sampling, fairness constraints, human review, outcome monitoring, etc.]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.10(2)(g); Art.9(2)(d); GDPR Art.22(3)",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 15,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "Describe specific technical or procedural measures that prevent or detect biased outcomes. If none are in place, state that clearly — it's an important finding.",
+    "suggestions": [
+      "Re-sampling / balancing training data",
+      "Fairness constraints in model training",
+      "Human review of high-impact decisions",
+      "Outcome monitoring with disaggregated metrics",
+      "Regular bias audits",
+      "Adversarial debiasing"
+    ]
+  },
+  {
+    "id": "CN.8",
+    "module": "Access to Justice",
+    "question_text": "Can affected persons challenge or appeal decisions?",
+    "question_type": "select",
+    "options": [
+      "Yes – clear process",
+      "Yes – limited",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU Charter Art.47; GDPR Art.22(3); EU AI Act Art.27(1)(f)",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 16,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "A decision is 'challengeable' if there is a documented process for affected persons to request review, appeal, or escalation to a human decision-maker. 'Limited' means a process exists but is not easily accessible or well-documented.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.9",
+    "module": "Access to Justice",
+    "question_text": "Are affected persons informed of their rights?",
+    "question_type": "select",
+    "options": [
+      "Proactively",
+      "On request",
+      "No",
+      "Don't know"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.13-14; EU AI Act Art.26(11); Art.50",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 17,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "In practice, this means: privacy notices that explain AI involvement, transparency disclosures about automated decision-making, and GDPR Art.22 notification when decisions have legal or significant effects.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.10",
+    "module": "Dignity",
+    "question_text": "Could this system/process affect human dignity?",
+    "question_type": "select",
+    "options": [
+      "No",
+      "Low",
+      "Medium",
+      "High",
+      "Don't know"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Auto-calculated",
+    "legal_basis": "EU Charter Art.1; EU AI Act Recital 1",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 18,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "Human dignity can be affected when systems: profile people reducing them to data points, remove human agency from important decisions, create surveillance that chills free expression, or score/rank individuals in ways that stigmatise.",
+    "suggestions": []
+  },
+  {
+    "id": "CN.11",
+    "module": "Dignity",
+    "question_text": "What measures protect dignity?",
+    "question_type": "free_text",
+    "options": [
+      "[Human review, feedback mechanisms, appeals, opt-out, etc.]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.14; Art.27(1)(f); GDPR Art.35(7)(d)",
+    "assessment_layer": "Common Nucleus",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "ALL",
+      "DPIA",
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 19,
+    "is_active": true,
+    "module_id": "common_nucleus",
+    "help_text": "List concrete safeguards that ensure people are treated with respect and retain agency. If no specific measures exist, say so — identifying the gap is valuable.",
+    "suggestions": [
+      "Human-in-the-loop for consequential decisions",
+      "Feedback mechanism for affected persons",
+      "Right to appeal automated decisions",
+      "Opt-out where feasible",
+      "Regular human rights impact reviews"
+    ]
+  },
+  {
+    "id": "AI.1",
+    "module": "AI Scope",
+    "question_text": "Where is your organisation established?",
+    "question_type": "multi_select",
+    "options": [
+      "EU/EEA",
+      "UK",
+      "US",
+      "Other"
+    ],
+    "logic_skip": "EU/EEA → domestic entity",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.2(1) – territorial scope",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 20,
+    "is_active": true,
+    "module_id": "ai_scope_classification",
+    "help_text": "Select all jurisdictions where your organisation has a legal presence (registered office, branch, or subsidiary). This determines which AI regulations apply directly to you.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.2",
+    "module": "AI Scope",
+    "question_text": "Are you placing this AI system on the EU market, or putting it into service in the EU?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → Subject as PROVIDER",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.3(3),(9) – provider definition",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 21,
+    "is_active": true,
+    "module_id": "ai_scope_classification",
+    "help_text": "'Placing on market' means making an AI system available in the EU for the first time (selling, licensing, distributing). 'Putting into service' means deploying it for actual use. If you sell, license, or deploy AI used by people in the EU, the answer is likely 'Yes'.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.3",
+    "module": "AI Scope",
+    "question_text": "Are you deploying this AI system under your authority, where it affects people in the EU?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → Subject as DEPLOYER",
+    "prefill_source": "Derived from E5",
+    "legal_basis": "EU AI Act Art.3(4) – deployer definition",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 22,
+    "is_active": true,
+    "module_id": "ai_scope_classification",
+    "help_text": "'Under your authority' means you decide when and how the AI system is used — even if you didn't build it. If EU residents are affected by your use of the system, you are likely a 'deployer' under the AI Act.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.4",
+    "module": "AI Scope",
+    "question_text": "Is the output of this AI system used by people or processes within the EU, even if hosted elsewhere?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "All NO → NOT subject to EU AI Act",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.2(1)(c) – output in Union",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 23,
+    "is_active": true,
+    "module_id": "ai_scope_classification",
+    "help_text": "Even if your organisation is outside the EU, the AI Act applies if the output of your AI system is used within the EU (e.g. decisions affecting EU residents, content shown to EU users).",
+    "suggestions": []
+  },
+  {
+    "id": "AI.5",
+    "module": "AI Scope",
+    "question_text": "Organisation's role(s) for this AI system under the EU AI Act?",
+    "question_type": "multi_select",
+    "options": [
+      "Provider (develop/train/place on market)",
+      "Deployer (use under your authority)",
+      "Importer (bring non-EU AI into EU market)",
+      "Distributor (make available on EU market)",
+      "Authorised Representative (represent non-EU provider)",
+      "Not sure — help me determine"
+    ],
+    "logic_skip": "Determines obligation set; multiple roles possible",
+    "prefill_source": "Auto-set from AI.1-AI.4",
+    "legal_basis": "EU AI Act Art.3(3)-(8); Art.25 – role changes; Art.22 – authorised representatives",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 24,
+    "is_active": true,
+    "module_id": "ai_scope_classification",
+    "help_text": "Select all roles that apply. **Provider** (Art.3(3)): You developed, or had developed, the AI system and place it on the market or put it into service under your own name/trademark. **Deployer** (Art.3(4)): You use an AI system under your authority in a professional capacity. **Importer** (Art.3(6)): You are established in the EU and bring an AI system from a non-EU provider onto the EU market. **Distributor** (Art.3(7)): You make an AI system available on the EU market without being the provider or importer. **Authorised Representative** (Art.3(5)/Art.22): You are appointed by a non-EU provider to act on their behalf for AI Act obligations. Select 'Not sure' if you need help — roles will be inferred from your other answers.",
+    "suggestions": [
+      "Select 'Provider' if you build, train, or substantially modify the AI system",
+      "Select 'Deployer' if you use a third-party AI system in your operations",
+      "Select 'Importer' if you bring a non-EU AI product into the EU market",
+      "Select 'Distributor' if you resell or redistribute AI systems in the EU",
+      "An organisation can hold multiple roles simultaneously (Art.25)"
+    ],
+    "render_hint": "role_selector"
+  },
+  {
+    "id": "AI.6",
+    "module": "Prohibited (Art.5)",
+    "question_text": "Could this system influence people's decisions without their awareness, or through techniques that bypass their conscious judgment?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → PROHIBITED – hard stop",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.5(1)(a)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 25,
+    "is_active": true,
+    "module_id": "ai_prohibited_practices",
+    "help_text": "This covers subliminal techniques (below conscious perception), manipulative methods (exploiting cognitive biases), and deceptive practices (misleading about purpose). Answering 'Yes' doesn't mean instant prohibition — it triggers a deeper assessment of whether harm could result. Examples: dark patterns, hidden persuasion architecture, undisclosed behavioural nudging.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.7",
+    "module": "Prohibited (Art.5)",
+    "question_text": "Does this system interact differently with people based on age, disability, or socioeconomic situation in ways that could disadvantage them?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → PROHIBITED",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.5(1)(b)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 26,
+    "is_active": true,
+    "module_id": "ai_prohibited_practices",
+    "help_text": "This assesses whether the system could exploit vulnerabilities of specific groups. Consider: does it adapt its behaviour based on detected vulnerability? Could it cause someone to make decisions against their interest? Answering 'Yes' opens further assessment — it doesn't automatically mean the practice is prohibited.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.8",
+    "module": "Prohibited (Art.5)",
+    "question_text": "Does this system score or rank individuals based on their social behaviour, and could those scores lead to negative consequences?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → PROHIBITED",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.5(1)(c)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 27,
+    "is_active": true,
+    "module_id": "ai_prohibited_practices",
+    "help_text": "Social scoring means evaluating people's trustworthiness or character based on social behaviour or personality traits, where those scores are then used to treat them unfavourably in unrelated contexts. Loyalty programmes or credit scores for specific purposes are generally not social scoring.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.9",
+    "module": "Prohibited (Art.5)",
+    "question_text": "Does this system identify people using biometrics (face, gait, voice) in real-time in publicly accessible spaces?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → PROHIBITED (narrow exceptions)",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.5(1)(d),(h)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 28,
+    "is_active": true,
+    "module_id": "ai_prohibited_practices",
+    "help_text": "This covers real-time biometric identification (not verification) in spaces accessible to the public — streets, shopping centres, transport hubs. Narrow exceptions exist for law enforcement (missing children, imminent threats, serious crime). If unsure whether your use case qualifies for an exception, select 'Yes' to trigger further review.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.10",
+    "module": "Prohibited (Art.5)",
+    "question_text": "Does this system build or expand facial recognition databases by collecting images from the internet or CCTV?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → PROHIBITED",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.5(1)(e)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 29,
+    "is_active": true,
+    "module_id": "ai_prohibited_practices",
+    "help_text": "This covers untargeted scraping of facial images from the internet or CCTV footage to build or expand recognition databases. Using images with explicit consent or from controlled sources for a specific lawful purpose is different. If you're unsure how the vendor's training data was collected, note that in your answer.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.11",
+    "module": "Prohibited (Art.5)",
+    "question_text": "Does this system attempt to detect or classify people's emotional states in a workplace or educational setting?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → PROHIBITED (medical/safety exceptions)",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.5(1)(f)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 30,
+    "is_active": true,
+    "module_id": "ai_prohibited_practices",
+    "help_text": "Emotion recognition in workplaces and schools is generally prohibited under Art.5(1)(f). Exceptions exist for medical or safety purposes (e.g. detecting driver drowsiness). If the system analyses facial expressions, voice tone, body language, or physiological signals to infer emotions, answer 'Yes'.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.12",
+    "module": "Prohibited (Art.5)",
+    "question_text": "Does this system use biometric data to categorise people by race, political views, religion, or sexual orientation?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → PROHIBITED",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.5(1)(g)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 31,
+    "is_active": true,
+    "module_id": "ai_prohibited_practices",
+    "help_text": "This covers using biometric data (face, fingerprint, gait, voice) to infer sensitive characteristics. Processing biometric data for identity verification is different from using it to categorise people by protected characteristics. If unsure, select 'Yes' to trigger further review.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.13",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Safety component of regulated product (medical/machinery/vehicle)?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Art.6(1) + Annex I)",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.6(1); Annex I",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 32,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Regulated products include medical devices, machinery, vehicles, toys, lifts, and other products listed in EU Annex I legislation. If this AI is a safety component of such a product, it's automatically classified as high-risk.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.14",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Biometric identification or categorisation?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.1)",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pt.1",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 33,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Biometric identification = determining who someone is (one-to-many matching). Biometric categorisation = assigning people to categories (age, gender, ethnicity) based on biometric data. Both trigger high-risk classification.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.15",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Critical infrastructure (utilities/traffic/digital)?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.2)",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pt.2",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 34,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Critical infrastructure includes energy supply, water treatment, transport management, digital infrastructure, and other systems whose failure would significantly impact public safety or essential services.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.16",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Education (admissions/assessment/proctoring)?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.3)",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pt.3",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 35,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Covers AI used for student admissions decisions, exam scoring or grading, proctoring/cheating detection, and learning path assignment. Includes both formal education and vocational training.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.17",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Recruitment/selection/screening of candidates?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.4a)",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pt.4(a)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 36,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Includes CV screening, candidate ranking, interview analysis, aptitude testing, and any AI-assisted filtering of job applicants. This is one of the most common high-risk use cases.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.18",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Task allocation/performance evaluation/monitoring?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.4b)",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pt.4(b)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 37,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Covers AI that assigns tasks to workers, evaluates performance, monitors productivity, or tracks work patterns. Includes workforce management and scheduling optimisation tools.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.19",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Promotion/termination/contractual decisions?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.4b/c)",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pt.4(b)-(c)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 38,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Covers AI influencing promotion decisions, termination recommendations, or changes to employment terms. If the AI output is a factor in these decisions (even advisory), select 'Yes'.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.20",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Credit scoring/insurance risk/essential services eligibility?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.5)",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pt.5",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 39,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Includes credit scoring, insurance premium calculation, claims assessment, and AI that determines access to essential services like housing, utilities, or government benefits.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.21",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Law enforcement/migration/justice applications?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → HIGH RISK (Annex III.6-8)",
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.6(2); Annex III pts.6-8",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 40,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Covers AI used in policing (predictive policing, evidence analysis), border control (visa/asylum processing, risk profiling), and judicial decisions (sentencing, parole recommendations). Highly regulated use cases.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.22",
+    "module": "High-Risk (Art.6)",
+    "question_text": "Does Art.6(3) exception apply (narrow procedural/preparatory task)?",
+    "question_type": "select",
+    "options": [
+      "Yes – documented",
+      "No",
+      "Not assessed"
+    ],
+    "logic_skip": "YES → not high-risk despite Annex III",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.6(3) – exception criteria",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 41,
+    "is_active": true,
+    "module_id": "ai_high_risk_classification",
+    "help_text": "Art.6(3) allows an Annex III system to be classified as non-high-risk if it performs a narrow procedural or preparatory task, the human decision-maker doesn't substantially rely on it, or it improves a previously completed human activity. This must be formally documented and justified.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.23",
+    "module": "Limited Risk/GPAI",
+    "question_text": "Direct interaction with people (chatbot/assistant)?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → Art.50 disclosure required",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.50(1) – transparency to users",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "VENDOR"
+    ],
+    "display_order": 42,
+    "is_active": true,
+    "module_id": "ai_limited_risk_gpai",
+    "help_text": "If people interact directly with the AI (chatbot, virtual assistant, voice assistant), they must be informed they are interacting with AI, not a human. This applies even to simple chatbots.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.24",
+    "module": "Limited Risk/GPAI",
+    "question_text": "Generates synthetic content (images/audio/text)?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → Art.50 labelling required",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.50(2) – machine-readable marking",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "VENDOR"
+    ],
+    "display_order": 43,
+    "is_active": true,
+    "module_id": "ai_limited_risk_gpai",
+    "help_text": "Includes AI that generates text, images, audio, video, or code. If the output could be mistaken for human-created content, it must be labelled as AI-generated with machine-readable marking.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.25",
+    "module": "Limited Risk/GPAI",
+    "question_text": "Does this system attempt to recognise emotions (e.g. happy, stressed, attentive) or categorise people by biometric features (e.g. estimated age, gender)?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": "YES → Art.50(3) inform persons",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.50(3)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "VENDOR"
+    ],
+    "display_order": 44,
+    "is_active": true,
+    "module_id": "ai_limited_risk_gpai",
+    "help_text": "This covers LIMITED-RISK transparency obligations under Art.50(3). Unlike the prohibited practice in AI.11 (which applies only in workplace/education settings), this question asks whether the system performs any emotion recognition or biometric categorisation in ANY context. If 'Yes', all persons exposed to the system must be informed before use.",
+    "suggestions": []
+  },
+  {
+    "id": "AI.26",
+    "module": "Limited Risk/GPAI",
+    "question_text": "Is this a GPAI or foundation model?",
+    "question_type": "select",
+    "options": [
+      "Standard GPAI",
+      "Systemic risk GPAI",
+      "No"
+    ],
+    "logic_skip": "GPAI → provider obligations Art.53-55",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.3(63); Art.51-55",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "VENDOR"
+    ],
+    "display_order": 45,
+    "is_active": true,
+    "module_id": "ai_limited_risk_gpai",
+    "help_text": "GPAI (General-Purpose AI) means a model that can perform a wide range of tasks (like large language models). 'Systemic risk' GPAI has very high compute power (>10^25 FLOPS) or is designated by the Commission. Most commercial LLM APIs are GPAI.",
+    "suggestions": []
+  },
+  {
+    "id": "FRIA.1",
+    "module": "FRIA",
+    "question_text": "Plain language description of the AI system?",
+    "question_type": "free_text",
+    "options": [
+      "[What it does, how it works]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.27(1)(a); Art.13",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "VENDOR"
+    ],
+    "display_order": 46,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Write a plain-language description that a non-technical person could understand. Cover: what the system does, what inputs it takes, what outputs it produces, and how those outputs are used.",
+    "suggestions": [
+      "The system takes [input] and produces [output]",
+      "It is used to [purpose] by [who]",
+      "The AI component specifically handles [task]",
+      "Decisions are made based on [factors]"
+    ]
+  },
+  {
+    "id": "FRIA.2",
+    "module": "FRIA",
+    "question_text": "Intended business purpose?",
+    "question_type": "free_text",
+    "options": [
+      "[WHY using this AI system]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.27(1)(a) – intended purpose",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 47,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Explain WHY your organisation is using this AI system — the business problem it solves. Be specific about the intended benefits and why AI is needed rather than a non-AI approach.",
+    "suggestions": [
+      "Improve efficiency of [process]",
+      "Reduce manual effort in [task]",
+      "Enable scalability of [function]",
+      "Improve accuracy/consistency of [decisions]"
+    ]
+  },
+  {
+    "id": "FRIA.3",
+    "module": "FRIA",
+    "question_text": "AI/ML techniques used?",
+    "question_type": "multi_select",
+    "options": [
+      "ML",
+      "Deep Learning",
+      "NLP",
+      "Computer Vision",
+      "Recommendations",
+      "GenAI",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.11; Annex IV",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "VENDOR"
+    ],
+    "display_order": 48,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Select the AI/ML techniques used. If the vendor hasn't disclosed this, select 'Unknown' — but note that for high-risk systems, you need to obtain this information from the provider.",
+    "suggestions": []
+  },
+  {
+    "id": "FRIA.4",
+    "module": "FRIA",
+    "question_text": "Period and frequency of use?",
+    "question_type": "free_text",
+    "options": [
+      "[Duration, frequency of deployment]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Process template",
+    "legal_basis": "EU AI Act Art.27(1)(b)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 49,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Describe when the system will be deployed (start date), how long it will be used, and how frequently it runs (continuous, daily batch, on-demand, etc.).",
+    "suggestions": [
+      "Continuous / always-on",
+      "Daily batch processing",
+      "On-demand / triggered by user action",
+      "Periodic (weekly/monthly) runs"
+    ]
+  },
+  {
+    "id": "FRIA.5",
+    "module": "FRIA",
+    "question_text": "Specific risks of harm to affected persons/groups?",
+    "question_type": "free_text",
+    "options": [
+      "[Identify risks by group]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.27(1)(d)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 50,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Identify specific risks by affected group. Consider: could some groups be harmed more than others? What are the worst-case outcomes? Think about both direct harms (wrong decisions) and indirect harms (chilling effects, exclusion).",
+    "suggestions": [
+      "Incorrect classification leading to service denial",
+      "Biased outcomes for protected groups",
+      "Privacy intrusion through excessive data collection",
+      "Loss of autonomy in decision-making",
+      "Psychological harm from surveillance/monitoring",
+      "Economic harm from incorrect scoring"
+    ]
+  },
+  {
+    "id": "FRIA.6",
+    "module": "FRIA",
+    "question_text": "Could this limit freedom of expression or information access?",
+    "question_type": "select",
+    "options": [
+      "No",
+      "Potentially",
+      "Yes"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Process template",
+    "legal_basis": "EU Charter Art.11; EU AI Act Art.27(1)(d)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 51,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Consider whether the system could filter, rank, or remove content, restrict who can publish or access information, or create a chilling effect that discourages people from expressing views.",
+    "suggestions": []
+  },
+  {
+    "id": "FRIA.7",
+    "module": "FRIA",
+    "question_text": "Involves content moderation or filtering?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Process template",
+    "legal_basis": "EU Charter Art.11; DSA Art.14-15",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 52,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Content moderation includes automated removal/flagging of posts, comments, or messages, as well as content ranking, filtering, or shadow-banning. If the system affects what content people see or can share, select 'Yes'.",
+    "suggestions": []
+  },
+  {
+    "id": "FRIA.8",
+    "module": "FRIA",
+    "question_text": "Level of human oversight?",
+    "question_type": "select",
+    "options": [
+      "Human-in-the-Loop",
+      "Human-on-the-Loop",
+      "Human-in-Command",
+      "Minimal"
+    ],
+    "logic_skip": "High-risk needs In/On-Loop",
+    "prefill_source": "Config",
+    "legal_basis": "EU AI Act Art.14(1)-(2); Art.27(1)(e)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 53,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Human-in-the-Loop: human approves every AI decision before it takes effect. Human-on-the-Loop: human monitors AI decisions and can intervene. Human-in-Command: human sets parameters but AI acts autonomously within them. Minimal: no meaningful human oversight.",
+    "suggestions": []
+  },
+  {
+    "id": "FRIA.9",
+    "module": "FRIA",
+    "question_text": "Can humans override AI decisions?",
+    "question_type": "select",
+    "options": [
+      "Always",
+      "Sometimes",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Config",
+    "legal_basis": "EU AI Act Art.14(3)-(4) – override capability",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 54,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Can a human reviewer reverse, modify, or override an AI decision after it has been made? 'Always' means any decision can be overridden. 'Sometimes' means only certain decision types or escalated cases.",
+    "suggestions": []
+  },
+  {
+    "id": "FRIA.10",
+    "module": "FRIA",
+    "question_text": "Staff trained on AI system use, limitations, and bias?",
+    "question_type": "free_text",
+    "options": [
+      "[Training programme details]"
+    ],
+    "logic_skip": "Required for high-risk",
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.4 – AI literacy; Art.26(2)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "Business Owner",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 55,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Describe the training programme for staff who use or oversee this AI system. Include: what's covered (capabilities, limitations, bias risks), who receives training, how often it's refreshed.",
+    "suggestions": [
+      "Initial onboarding training on AI system",
+      "Regular refresher training (quarterly/annual)",
+      "Documentation of system limitations provided",
+      "Bias awareness and mitigation training",
+      "Escalation procedures for uncertain cases"
+    ]
+  },
+  {
+    "id": "FRIA.11",
+    "module": "FRIA",
+    "question_text": "Measures to be taken if risks materialise?",
+    "question_type": "free_text",
+    "options": [
+      "[Governance, complaint mechanisms, escalation, rollback]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.27(1)(f)",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 56,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Describe your plan for when things go wrong. What governance structure handles incidents? How do affected persons complain? What's the escalation path? Can the system be rolled back?",
+    "suggestions": [
+      "Designated AI governance committee",
+      "Complaint mechanism for affected persons",
+      "Escalation procedure to human decision-makers",
+      "System rollback / kill-switch capability",
+      "Regular review cadence for ongoing risks",
+      "Incident reporting to market surveillance authority"
+    ]
+  },
+  {
+    "id": "FRIA.12",
+    "module": "FRIA",
+    "question_text": "Impact on persons under 18 or vulnerable groups?",
+    "question_type": "select",
+    "options": [
+      "Yes – assessed",
+      "Not applicable",
+      "No – not assessed"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.9(9) – children/vulnerable groups",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 57,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "Under-18s and vulnerable groups (elderly, disabled, economically disadvantaged) may be disproportionately affected by AI. If any affected persons could belong to these groups, select 'Yes – assessed' and document your analysis.",
+    "suggestions": []
+  },
+  {
+    "id": "FRIA.13",
+    "module": "FRIA",
+    "question_text": "Market surveillance authority notified of FRIA results?",
+    "question_type": "select",
+    "options": [
+      "Yes – submitted",
+      "Not yet",
+      "Not required (Art.46(1))",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.27(3) – notification; Art.27(5) template",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA"
+    ],
+    "display_order": 58,
+    "is_active": true,
+    "module_id": "fria",
+    "help_text": "For high-risk AI systems deployed by public bodies or in specified areas, FRIA results must be submitted to the relevant market surveillance authority. Art.46(1) exempts national security and military uses.",
+    "suggestions": []
+  },
+  {
+    "id": "DG.1",
+    "module": "AI Data Gov (Art.9)",
+    "question_text": "Documented risk management system in place?",
+    "question_type": "select",
+    "options": [
+      "Yes – established",
+      "Partial",
+      "No",
+      "Unknown (vendor-managed)"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.9(1)-(2) – RMS lifecycle",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 59,
+    "is_active": true,
+    "module_id": "ai_data_governance",
+    "help_text": "A risk management system (RMS) is a documented, iterative process for identifying, analysing, estimating, and mitigating risks throughout the AI system's lifecycle. It should be proportionate to the level of risk.",
+    "suggestions": []
+  },
+  {
+    "id": "DG.2",
+    "module": "AI Data Gov (Art.9)",
+    "question_text": "Known/foreseeable risks to health, safety, fundamental rights identified?",
+    "question_type": "select",
+    "options": [
+      "Yes – comprehensive",
+      "Partial",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.9(2)(a) – risk identification",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 60,
+    "is_active": true,
+    "module_id": "ai_data_governance",
+    "help_text": "This asks whether you've systematically identified risks to health (physical or mental), safety (of individuals or property), and fundamental rights (non-discrimination, privacy, dignity). 'Partial' means some risks identified but no comprehensive analysis.",
+    "suggestions": []
+  },
+  {
+    "id": "DG.3",
+    "module": "AI Data Gov (Art.10)",
+    "question_text": "Training/validation/testing datasets relevant, representative, error-free?",
+    "question_type": "select",
+    "options": [
+      "Yes – documented",
+      "Partly",
+      "No",
+      "N/A"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.10(1)-(3) – data quality",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 61,
+    "is_active": true,
+    "module_id": "ai_data_governance",
+    "help_text": "Training data should be relevant to the task, representative of the deployment population, and as free from errors as practicable. If this is a vendor system, request their data quality documentation.",
+    "suggestions": []
+  },
+  {
+    "id": "DG.4",
+    "module": "AI Data Gov (Art.10)",
+    "question_text": "Examination for biases in training data conducted?",
+    "question_type": "select",
+    "options": [
+      "Yes – documented",
+      "Yes – no issues",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.10(2)(f) – bias examination",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 62,
+    "is_active": true,
+    "module_id": "ai_data_governance",
+    "help_text": "Bias examination means testing training data for systematic over- or under-representation of demographic groups, and checking for historical biases that could be amplified by the model.",
+    "suggestions": []
+  },
+  {
+    "id": "DG.5",
+    "module": "AI Data Gov (Art.10)",
+    "question_text": "Measures to detect/prevent/mitigate identified biases?",
+    "question_type": "free_text",
+    "options": [
+      "[Re-sampling, synthetic augmentation, fairness constraints, de-biasing]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.10(2)(g) – bias mitigation",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 63,
+    "is_active": true,
+    "module_id": "ai_data_governance",
+    "help_text": "Describe specific technical measures to address biases found during examination. Include both pre-processing (data-level), in-processing (algorithm-level), and post-processing (output-level) approaches.",
+    "suggestions": [
+      "Re-sampling under-represented groups",
+      "Synthetic data augmentation",
+      "Fairness constraints during training",
+      "Post-hoc calibration of outputs",
+      "Adversarial debiasing techniques",
+      "Regular outcome monitoring by demographic group"
+    ]
+  },
+  {
+    "id": "DG.6",
+    "module": "AI Data Gov (Art.10)",
+    "question_text": "Datasets reflect geographical/contextual/demographic deployment setting?",
+    "question_type": "select",
+    "options": [
+      "Yes – validated",
+      "Partially",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.10(4) – deployment context",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 64,
+    "is_active": true,
+    "module_id": "ai_data_governance",
+    "help_text": "Does the training/test data reflect the actual environment where the AI will be deployed? For example, if deploying in France, was the data representative of French demographics, language, and cultural context?",
+    "suggestions": []
+  },
+  {
+    "id": "DG.7",
+    "module": "AI Data Gov (Art.9)",
+    "question_text": "Residual risk assessed and judged acceptable?",
+    "question_type": "select",
+    "options": [
+      "Yes – acceptable",
+      "Yes – not acceptable",
+      "Not assessed"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.9(5) – residual risk",
+    "assessment_layer": "FRIA-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "display_order": 65,
+    "is_active": true,
+    "module_id": "ai_data_governance",
+    "help_text": "After applying all mitigations, is the remaining risk acceptable given the benefits? 'Not acceptable' means further measures are needed or the system should not proceed. This is a judgment call requiring documented reasoning.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.1",
+    "module": "Conformity (Art.43)",
+    "question_text": "Conformity assessment route taken?",
+    "question_type": "select",
+    "options": [
+      "Internal control (Annex VI)",
+      "Third-party (Annex VII)",
+      "Under product legislation (Annex I)",
+      "Not yet",
+      "N/A – deployer only"
+    ],
+    "logic_skip": "Annex III.1 biometrics may require Annex VII",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.43(1)-(2); Annex VI, VII",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 66,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "Internal control (Annex VI) = self-assessment by the provider. Third-party (Annex VII) = independent assessment by a notified body. Systems in Annex III point 1 (biometrics) generally require third-party assessment.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.2",
+    "module": "Conformity (Art.17)",
+    "question_text": "Quality management system documented and maintained?",
+    "question_type": "select",
+    "options": [
+      "Yes – comprehensive",
+      "Partial",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.17 – QMS; Art.16(c)",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 67,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "A QMS covers development procedures, design controls, testing protocols, data management, risk management, post-market monitoring, and incident handling. It should be documented and regularly reviewed.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.3",
+    "module": "Conformity (Art.11)",
+    "question_text": "Technical documentation per Annex IV prepared?",
+    "question_type": "select",
+    "options": [
+      "Yes – comprehensive",
+      "Partial",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.11; Annex IV; Art.16(d)",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 68,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "Annex IV technical documentation includes: system description, design specifications, development process, monitoring and testing methods, risk management, and information about training data. This is mandatory for high-risk AI.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.4",
+    "module": "Conformity (Art.12)",
+    "question_text": "Automatic logging capability for traceability?",
+    "question_type": "select",
+    "options": [
+      "Yes – tamper-resistant",
+      "Yes – basic",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.12; Art.26(6) deployer 6-month retention",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 69,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "High-risk AI systems must automatically log events to enable traceability. Logs should be tamper-resistant, retained for an appropriate period (deployers: at least 6 months), and accessible for audit.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.5",
+    "module": "Conformity (Art.13)",
+    "question_text": "Transparency info and instructions for use provided to deployers?",
+    "question_type": "select",
+    "options": [
+      "Yes – complete",
+      "Partial",
+      "No",
+      "N/A – we are provider"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.13; Art.26(1)",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 70,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "Providers must give deployers clear information about the AI system's capabilities, limitations, intended purpose, required human oversight measures, and expected performance levels.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.6",
+    "module": "Conformity (Art.15)",
+    "question_text": "Accuracy levels/metrics declared and appropriate?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "Partially",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.15(1)-(3) – accuracy, robustness",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 71,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "Accuracy metrics should be appropriate for the specific task (e.g. precision/recall for classification, error rate for predictions). They should be measured on data representative of the deployment context.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.7",
+    "module": "Conformity (Art.15)",
+    "question_text": "System resilient to errors, faults, adversarial attacks?",
+    "question_type": "select",
+    "options": [
+      "Yes – tested",
+      "Partially",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.15(4)-(5) – robustness, cybersecurity",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CONFORM",
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 72,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "Robustness means the system performs reliably under stress — incorrect inputs, adversarial attacks, environmental changes, and hardware/software faults. Testing should cover realistic failure scenarios.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.8",
+    "module": "Conformity (Art.47-48)",
+    "question_text": "EU Declaration of Conformity drawn up / CE marking affixed?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "No",
+      "Not required (non-EU)",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.16(f)-(h); Art.47; Art.48",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 73,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "The EU Declaration of Conformity is a formal document stating the AI system meets all applicable requirements. CE marking is affixed to the system/documentation. Both required before placing high-risk AI on the EU market.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.9",
+    "module": "Conformity (Art.49)",
+    "question_text": "AI system registered in EU database?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "Not required",
+      "Not yet",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.49; Art.71 – EU database; Art.26(8)",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 74,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "High-risk AI systems must be registered in the EU database before being placed on the market. Deployers of public-authority high-risk systems must also register their use. The database is publicly accessible.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.10",
+    "module": "Conformity (Art.72-73)",
+    "question_text": "Post-market monitoring plan in place?",
+    "question_type": "select",
+    "options": [
+      "Yes – provider plan",
+      "Yes – deployer monitoring",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.72 – post-market monitoring",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 75,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "Post-market monitoring is the provider's ongoing obligation to collect and analyse data about the AI system's performance after deployment. Deployers should monitor outputs and report issues to the provider.",
+    "suggestions": []
+  },
+  {
+    "id": "CA.11",
+    "module": "Conformity (Art.73)",
+    "question_text": "Serious incident reporting process documented?",
+    "question_type": "select",
+    "options": [
+      "Yes – documented",
+      "Partial",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.73 – serious incidents; 15-day deadline",
+    "assessment_layer": "Conformity-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM"
+    ],
+    "display_order": 76,
+    "is_active": true,
+    "module_id": "conformity_assessment",
+    "help_text": "Serious incidents (death, serious health damage, fundamental rights breach, critical infrastructure disruption) must be reported to the market surveillance authority within 15 days. The process should be documented in advance.",
+    "suggestions": []
+  },
+  {
+    "id": "DP.1",
+    "module": "DPIA (Art.35)",
+    "question_text": "Types of personal data processed?",
+    "question_type": "multi_select",
+    "options": [
+      "Name",
+      "Contact",
+      "CV",
+      "Education",
+      "Financial",
+      "Behavioural",
+      "AI Scores",
+      "Video",
+      "Biometrics",
+      "Health",
+      "Children"
+    ],
+    "logic_skip": "Only if E2=Yes",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.4(1); Art.9 – special categories; Art.35(7)(a)",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "VENDOR"
+    ],
+    "display_order": 77,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Select all types of personal data this system processes. Special category data (health, biometrics, children's data) triggers additional requirements under GDPR Art.9. Be comprehensive — consider both direct inputs and derived data.",
+    "suggestions": [],
+    "render_hint": "searchable_data_types"
+  },
+  {
+    "id": "DP.2",
+    "module": "DPIA (Art.35)",
+    "question_text": "Special category (sensitive) data involved?",
+    "question_type": "select",
+    "options": [
+      "No",
+      "Racial/ethnic origin",
+      "Political opinions",
+      "Religious beliefs",
+      "Health",
+      "Biometric",
+      "Genetic",
+      "Sex life/orientation",
+      "Trade union"
+    ],
+    "logic_skip": "Yes → Art.9 explicit basis required",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.9(1) – special categories",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "VENDOR"
+    ],
+    "display_order": 78,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Special category data requires an explicit legal basis under Art.9(2) in addition to Art.6 lawfulness. If processing any of these categories, document the Art.9 basis alongside your Art.6 basis.",
+    "suggestions": []
+  },
+  {
+    "id": "DP.3",
+    "module": "DPIA (Art.35)",
+    "question_text": "Legal basis for processing?",
+    "question_type": "multi_select",
+    "options": [
+      "Consent (Art.6(1)(a))",
+      "Contract (Art.6(1)(b))",
+      "Legitimate Interest (Art.6(1)(f))",
+      "Legal Obligation (Art.6(1)(c))",
+      "Public Interest (Art.6(1)(e))",
+      "Vital Interest (Art.6(1)(d))"
+    ],
+    "logic_skip": "Leg. Interest → LIA module activates",
+    "prefill_source": "Process template",
+    "legal_basis": "GDPR Art.6(1) – lawfulness",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "LIA"
+    ],
+    "display_order": 79,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Select the legal basis that justifies this processing. 'Consent' requires freely given, specific, informed agreement. 'Legitimate interest' requires a balancing test (LIA). Most business processing relies on contract, legitimate interest, or legal obligation. While best practice is to identify one primary legal basis, you may select multiple if different processing activities within the same system rely on different bases.",
+    "suggestions": []
+  },
+  {
+    "id": "DP.4",
+    "module": "DPIA (Art.35)",
+    "question_text": "Processing necessary and proportionate to purposes?",
+    "question_type": "select",
+    "options": [
+      "Yes – justified",
+      "Partly excessive",
+      "No",
+      "Not sure"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.35(7)(b) – necessity & proportionality",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA"
+    ],
+    "display_order": 80,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Apply the necessity and proportionality test: (a) Is there a less intrusive alternative that achieves the same purpose? (b) Is the data collected minimised to what's needed? (c) Is the purpose specific and well-defined? (d) What evidence supports that this processing is necessary?",
+    "suggestions": []
+  },
+  {
+    "id": "DP.5",
+    "module": "DPIA (Art.35)",
+    "question_text": "Data retention period?",
+    "question_type": "select",
+    "options": [
+      "<1 year",
+      "1–3 years",
+      "3–7 years",
+      ">7 years",
+      "As required by law"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.5(1)(e) – storage limitation",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "VENDOR"
+    ],
+    "display_order": 81,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Data should not be kept longer than necessary for its purpose. Consider legal requirements (tax records, employment law), practical needs, and whether anonymisation could replace retention.",
+    "suggestions": []
+  },
+  {
+    "id": "DP.6",
+    "module": "DPIA (Art.32)",
+    "question_text": "How is personal data secured?",
+    "question_type": "free_text",
+    "options": [
+      "[Encryption, access controls, pseudonymisation, etc.]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.32 – security of processing; Art.35(7)(d)",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "DPIA",
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 82,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Describe the technical and organisational security measures protecting personal data. Consider the sensitivity of data and risks identified in this assessment.",
+    "suggestions": [
+      "Encryption at rest and in transit",
+      "Role-based access controls",
+      "Pseudonymisation",
+      "Regular access reviews",
+      "Audit logging",
+      "Data loss prevention"
+    ]
+  },
+  {
+    "id": "DP.7",
+    "module": "DPIA (Art.35)",
+    "question_text": "DPO consulted? What was their advice?",
+    "question_type": "free_text",
+    "options": [
+      "[DPO name, date, summary of advice]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.35(2) – DPO consultation; Art.39(1)(c)",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA"
+    ],
+    "display_order": 83,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "The DPO should be consulted on any DPIA. Record the DPO's name, consultation date, and a summary of their advice — especially any concerns or recommended changes.",
+    "suggestions": [
+      "DPO name and date of consultation",
+      "Summary of DPO advice and recommendations",
+      "Actions taken in response to DPO guidance",
+      "Outstanding DPO concerns to be addressed"
+    ]
+  },
+  {
+    "id": "DP.8",
+    "module": "DPIA (Art.35)",
+    "question_text": "Data subjects or representatives consulted?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "No – commercial exemption",
+      "No – security exemption",
+      "Not applicable",
+      "Not done"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.35(9) – views of data subjects",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA"
+    ],
+    "display_order": 84,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "GDPR Art.35(9) requires seeking the views of data subjects or their representatives where appropriate. Exemptions exist for commercial confidentiality or security reasons, but these must be justified.",
+    "suggestions": []
+  },
+  {
+    "id": "DP.9",
+    "module": "DPIA (Art.22)",
+    "question_text": "Automated decision-making with legal/significant effects?",
+    "question_type": "select",
+    "options": [
+      "Yes – fully automated",
+      "Yes – partially",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.22 – automated decisions; Art.35(3)(a) DPIA trigger",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "FRIA"
+    ],
+    "display_order": 85,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Automated decision-making with legal or similarly significant effects (hiring, credit, insurance) triggers GDPR Art.22 rights — including the right to human intervention, to express a point of view, and to contest the decision.",
+    "suggestions": []
+  },
+  {
+    "id": "DP.10",
+    "module": "DPIA (Art.36)",
+    "question_text": "After mitigations, residual risk level?",
+    "question_type": "select",
+    "options": [
+      "Low",
+      "Medium",
+      "High (→ prior consultation)"
+    ],
+    "logic_skip": "High → Art.36 consult DPA",
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.36(1) – prior consultation when high residual risk",
+    "assessment_layer": "DPIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA"
+    ],
+    "display_order": 86,
+    "is_active": true,
+    "module_id": "dpia",
+    "help_text": "Residual risk is the risk remaining AFTER you have applied all planned safeguards (encryption, access controls, DPIAs, human oversight, etc.). To assess it: (1) What is the likelihood of a breach or misuse given your mitigations? (2) What would the impact be on affected individuals? (3) Are there risks your mitigations do not address? Choose 'Low' if remaining exposure is negligible, 'Medium' if some realistic risk scenarios remain but are manageable, or 'High' if significant risk persists despite mitigations — this triggers mandatory prior consultation with the supervisory authority under GDPR Art.36.",
+    "suggestions": []
+  },
+  {
+    "id": "TIA.1",
+    "module": "TIA",
+    "question_text": "Where is data hosted/stored?",
+    "question_type": "multi_select",
+    "options": [
+      "EU",
+      "UK",
+      "US",
+      "Other (specify)"
+    ],
+    "logic_skip": "Only if E3=Yes",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.44 – general principle for transfers",
+    "assessment_layer": "TIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "TIA",
+      "VENDOR"
+    ],
+    "display_order": 87,
+    "is_active": true,
+    "module_id": "tia",
+    "help_text": "Identify all countries where personal data is stored, processed, or accessed from. Include primary hosting, backup/DR locations, and any countries where support staff may access data remotely.",
+    "suggestions": []
+  },
+  {
+    "id": "TIA.2",
+    "module": "TIA",
+    "question_text": "Transfer mechanism in place?",
+    "question_type": "select",
+    "options": [
+      "Adequacy decision",
+      "SCCs",
+      "BCRs",
+      "EU-US DPF",
+      "Derogation Art.49",
+      "None"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.45-49; Schrems II (C-311/18)",
+    "assessment_layer": "TIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "TIA",
+      "VENDOR"
+    ],
+    "display_order": 88,
+    "is_active": true,
+    "module_id": "tia",
+    "help_text": "Select the legal mechanism enabling data transfer. Adequacy decisions cover approved countries. SCCs (Standard Contractual Clauses) are the most common mechanism. EU-US DPF applies to certified US companies. BCRs cover intra-group transfers.",
+    "suggestions": []
+  },
+  {
+    "id": "TIA.3",
+    "module": "TIA",
+    "question_text": "Supplementary measures implemented?",
+    "question_type": "multi_select",
+    "options": [
+      "Encryption in transit",
+      "Encryption at rest",
+      "Pseudonymisation",
+      "Access controls",
+      "None"
+    ],
+    "logic_skip": "Required if US transfer",
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EDPB Recommendations 01/2020; Schrems II",
+    "assessment_layer": "TIA-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "DPIA",
+      "TIA",
+      "VENDOR"
+    ],
+    "display_order": 89,
+    "is_active": true,
+    "module_id": "tia",
+    "help_text": "Following Schrems II, supplementary measures may be needed on top of SCCs to ensure 'essentially equivalent' protection. This is especially relevant for US transfers where government surveillance access is a concern.",
+    "suggestions": []
+  },
+  {
+    "id": "TIA.4",
+    "module": "TIA",
+    "question_text": "Third-country government access risk assessed?",
+    "question_type": "select",
+    "options": [
+      "Low",
+      "Medium",
+      "High"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EDPB Recommendations 01/2020 Step 3 – assessment of third country law",
+    "assessment_layer": "TIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "TIA"
+    ],
+    "display_order": 90,
+    "is_active": true,
+    "module_id": "tia",
+    "help_text": "Assess the likelihood and impact of third-country government authorities accessing the transferred data. Consider: surveillance laws, government access powers, rule of law, data protection enforcement, and practical experience.",
+    "suggestions": []
+  },
+  {
+    "id": "LIA.1",
+    "module": "LIA",
+    "question_text": "What is the specific legitimate interest pursued?",
+    "question_type": "free_text",
+    "options": [
+      "[Describe the interest]"
+    ],
+    "logic_skip": "Only if DP.3 = Legitimate Interest",
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.6(1)(f) – purpose test; Recitals 47-49",
+    "assessment_layer": "LIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "LIA"
+    ],
+    "display_order": 91,
+    "is_active": true,
+    "module_id": "lia",
+    "help_text": "Describe the specific interest (not generic 'business improvement'). Good examples: 'Fraud prevention to protect customers and the business', 'Direct marketing to existing customers about related products'. The interest must be real, present, and lawful.",
+    "suggestions": [
+      "Fraud prevention and detection",
+      "Network and information security",
+      "Direct marketing to existing customers",
+      "Internal administrative purposes",
+      "Ensuring safety of employees/products"
+    ]
+  },
+  {
+    "id": "LIA.2",
+    "module": "LIA",
+    "question_text": "Is processing necessary, or could less intrusive means achieve the purpose?",
+    "question_type": "select",
+    "options": [
+      "Necessary – no alternatives",
+      "Partly – alternatives exist",
+      "Not necessary"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.6(1)(f) – necessity test; CJEU C-252/21 Meta",
+    "assessment_layer": "LIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "LIA"
+    ],
+    "display_order": 92,
+    "is_active": true,
+    "module_id": "lia",
+    "help_text": "Could you achieve the same purpose with less data, less intrusive processing, or no personal data at all? If alternatives exist but are impractical, explain why.",
+    "suggestions": []
+  },
+  {
+    "id": "LIA.3",
+    "module": "LIA",
+    "question_text": "Nature and sensitivity of personal data involved?",
+    "question_type": "multi_select",
+    "options": [
+      "Basic identity",
+      "Contact",
+      "Financial",
+      "Behavioural/tracking",
+      "Special category",
+      "Children's data"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EDPB Guidelines 1/2024 s.3.3 – balancing test",
+    "assessment_layer": "LIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "LIA"
+    ],
+    "display_order": 93,
+    "is_active": true,
+    "module_id": "lia",
+    "help_text": "More sensitive data categories tilt the balance towards data subject rights. Special category data and children's data carry the heaviest weight in the balancing test.",
+    "suggestions": []
+  },
+  {
+    "id": "LIA.4",
+    "module": "LIA",
+    "question_text": "Would data subjects reasonably expect this processing?",
+    "question_type": "select",
+    "options": [
+      "Expected",
+      "Somewhat expected",
+      "Not expected"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EDPB Guidelines 1/2024 s.3.3.3 – reasonable expectations",
+    "assessment_layer": "LIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "LIA"
+    ],
+    "display_order": 94,
+    "is_active": true,
+    "module_id": "lia",
+    "help_text": "Would a reasonable person in the data subject's position expect this processing? Context matters: employees may expect workplace monitoring more than customers expect behavioural tracking. The further from expectations, the harder to justify.",
+    "suggestions": []
+  },
+  {
+    "id": "LIA.5",
+    "module": "LIA",
+    "question_text": "Balancing conclusion: do data subject rights override the legitimate interest?",
+    "question_type": "select",
+    "options": [
+      "No – LI prevails",
+      "Borderline – safeguards needed",
+      "Yes – LI not available"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.6(1)(f) – balancing test; EU Charter Art.7-8",
+    "assessment_layer": "LIA-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "LIA"
+    ],
+    "display_order": 95,
+    "is_active": true,
+    "module_id": "lia",
+    "help_text": "The final balancing conclusion. 'LI prevails' means the legitimate interest outweighs data subject rights given the safeguards in place. 'Borderline' means additional safeguards are needed. 'LI not available' means you need a different legal basis.",
+    "suggestions": []
+  },
+  {
+    "id": "LIA.6",
+    "module": "LIA",
+    "question_text": "What safeguards are implemented to protect data subjects?",
+    "question_type": "multi_select",
+    "options": [
+      "Minimisation",
+      "Pseudonymisation",
+      "Easy opt-out",
+      "Enhanced transparency",
+      "Retention limits",
+      "Access controls",
+      "None"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.5(1)(c); Art.13(1)(d); EDPB Guidelines 1/2024",
+    "assessment_layer": "LIA-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "LIA"
+    ],
+    "display_order": 96,
+    "is_active": true,
+    "module_id": "lia",
+    "help_text": "Safeguards can tilt the balance in favour of the legitimate interest. The more safeguards implemented, the more likely the processing can be justified. Opt-out is especially important for direct marketing.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.1",
+    "module": "Cyber",
+    "question_text": "Does this system fall within scope of NIS2 Directive?",
+    "question_type": "select",
+    "options": [
+      "Yes – essential entity",
+      "Yes – important entity",
+      "No",
+      "Unsure"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "NIS2 Directive Art.2-3 – essential/important entities",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER"
+    ],
+    "display_order": 97,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "NIS2 applies to 'essential entities' (energy, transport, health, water, digital infrastructure, banking, space) and 'important entities' (postal, waste, food, manufacturing, digital providers). Check if your sector is listed in NIS2 Annexes I-II.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.2",
+    "module": "Cyber",
+    "question_text": "Has a cybersecurity risk assessment been conducted?",
+    "question_type": "select",
+    "options": [
+      "Yes – comprehensive",
+      "Yes – basic",
+      "No",
+      "Planned"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "NIS2 Art.21(1); GDPR Art.32(1); EU AI Act Art.15(5)",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER"
+    ],
+    "display_order": 98,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "A cybersecurity risk assessment identifies threats, vulnerabilities, and potential impacts specific to this system. It should be proportionate to the system's criticality and updated regularly.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.3",
+    "module": "Cyber",
+    "question_text": "Security measures in place?",
+    "question_type": "multi_select",
+    "options": [
+      "Encryption at rest",
+      "Encryption in transit",
+      "MFA",
+      "RBAC",
+      "Network segmentation",
+      "WAF/IDS",
+      "Endpoint protection",
+      "Logging/SIEM",
+      "None"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.32(1)(a)-(d); NIS2 Art.21(2)",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "DPIA",
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 99,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "Select all security measures currently protecting this system. For AI systems, also consider AI-specific measures (model access controls, inference API security, training data protection).",
+    "suggestions": []
+  },
+  {
+    "id": "CY.4",
+    "module": "Cyber",
+    "question_text": "Vulnerability management and patching cadence?",
+    "question_type": "select",
+    "options": [
+      "Automated/continuous",
+      "Monthly",
+      "Quarterly",
+      "Ad hoc",
+      "None"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "NIS2 Art.21(2)(e) – vulnerability handling",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 100,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "How quickly are known vulnerabilities patched? Automated/continuous is ideal for critical systems. Monthly is common for standard systems. Ad hoc or longer intervals increase exposure to known exploits.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.5",
+    "module": "Cyber",
+    "question_text": "Incident detection and response plan?",
+    "question_type": "select",
+    "options": [
+      "Yes – tested regularly",
+      "Yes – documented",
+      "Partial",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "NIS2 Art.21(2)(b); Art.23 – incident reporting; GDPR Art.33-34",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 101,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "An incident response plan should cover: detection mechanisms, classification criteria, containment procedures, eradication steps, recovery process, and lessons learned. Regular testing (tabletop exercises) validates the plan.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.6",
+    "module": "Cyber",
+    "question_text": "Business continuity / disaster recovery plan for this system?",
+    "question_type": "select",
+    "options": [
+      "Yes – tested",
+      "Yes – documented",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "NIS2 Art.21(2)(c) – business continuity; GDPR Art.32(1)(c)",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 102,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "BC/DR plans ensure the system can recover from disruptions. Include: RPO (how much data can you afford to lose), RTO (how quickly must you recover), and tested backup/restoration procedures.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.7",
+    "module": "Cyber",
+    "question_text": "Supply chain security measures for this system?",
+    "question_type": "select",
+    "options": [
+      "Yes – assessed",
+      "Partial",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "NIS2 Art.21(2)(d) – supply chain security",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 103,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "Supply chain security means assessing the security posture of vendors, open-source components, and third-party services in the system's stack. NIS2 specifically requires supply chain risk management.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.8",
+    "module": "Cyber",
+    "question_text": "Adversarial robustness tested (for AI systems)?",
+    "question_type": "select",
+    "options": [
+      "Yes – red teamed",
+      "Yes – basic testing",
+      "No",
+      "N/A – not AI"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.15(4)-(5) – robustness, adversarial attacks",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "CYBER"
+    ],
+    "display_order": 104,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "Adversarial robustness testing checks whether the AI can be fooled by deliberately crafted inputs (adversarial examples, prompt injection, data poisoning). Red teaming applies a broader threat perspective.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.9",
+    "module": "Cyber",
+    "question_text": "Feedback loop / data poisoning risk assessed (for AI systems)?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "No",
+      "N/A – not AI"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "EU AI Act Art.15(4) – biased outputs influencing future operations",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "CYBER"
+    ],
+    "display_order": 105,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "Feedback loops occur when AI outputs influence future training data. Data poisoning is when an attacker deliberately corrupts training data. Both can degrade model performance or introduce bias over time.",
+    "suggestions": []
+  },
+  {
+    "id": "CY.10",
+    "module": "Cyber",
+    "question_text": "Penetration testing conducted?",
+    "question_type": "select",
+    "options": [
+      "Yes – within 12 months",
+      "Yes – older",
+      "No",
+      "Planned"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "NIS2 Art.21(2)(e); ISO 27001 A.18",
+    "assessment_layer": "Cyber-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 106,
+    "is_active": true,
+    "module_id": "cybersecurity",
+    "help_text": "Penetration testing simulates real attacks to find exploitable vulnerabilities. Results within the last 12 months are considered current. Older results may not reflect the current threat landscape.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.1",
+    "module": "Vendor General",
+    "question_text": "Vendor name and headquarters location?",
+    "question_type": "free_text",
+    "options": [
+      "[Name, City, Country]"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.28(3); due diligence",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "Procurement",
+    "assessment_types": [
+      "VENDOR"
+    ],
+    "display_order": 107,
+    "is_active": true,
+    "module_id": "vendor_general",
+    "help_text": "Record the vendor's legal entity name and headquarters location. This determines which jurisdiction's laws govern the vendor relationship and where enforcement actions would be directed.",
+    "suggestions": [
+      "Vendor legal name",
+      "Headquarters city and country",
+      "EU/EEA representative (if applicable)"
+    ]
+  },
+  {
+    "id": "VR.2",
+    "module": "Vendor General",
+    "question_text": "Security certifications held?",
+    "question_type": "multi_select",
+    "options": [
+      "SOC 2",
+      "ISO 27001",
+      "ISO 27701",
+      "PCI-DSS",
+      "FedRAMP",
+      "CSA STAR",
+      "None"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.28(1) – sufficient guarantees; NIS2 Art.21(2)(d)",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "Procurement",
+    "assessment_types": [
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 108,
+    "is_active": true,
+    "module_id": "vendor_general",
+    "help_text": "Security certifications provide independent assurance of the vendor's security controls. SOC 2 and ISO 27001 are the most commonly requested. ISO 27701 adds privacy management. CSA STAR is cloud-specific.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.3",
+    "module": "Vendor General",
+    "question_text": "Data Processing Agreement (DPA) executed?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No",
+      "In progress"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.28(3) – processor agreement",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "VENDOR"
+    ],
+    "display_order": 109,
+    "is_active": true,
+    "module_id": "vendor_general",
+    "help_text": "A Data Processing Agreement is legally required under GDPR Art.28(3) when a vendor processes personal data on your behalf. It must cover subject matter, duration, nature/purpose, data types, and obligations.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.4",
+    "module": "Vendor General",
+    "question_text": "Sub-processors identified and approved?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No",
+      "Not applicable"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.28(2),(4) – sub-processors",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "TIA",
+      "VENDOR"
+    ],
+    "display_order": 110,
+    "is_active": true,
+    "module_id": "vendor_general",
+    "help_text": "Sub-processors are third parties the vendor engages to help process your data. Under GDPR, you must approve sub-processors, and the vendor must impose the same data protection obligations on them.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.5",
+    "module": "Vendor General",
+    "question_text": "Incident response and breach notification process?",
+    "question_type": "select",
+    "options": [
+      "Yes – <72hrs",
+      "Yes – documented",
+      "Partial",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "GDPR Art.33(2) – processor notification; NIS2 Art.23",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "IT / InfoSec",
+    "assessment_types": [
+      "CYBER",
+      "VENDOR"
+    ],
+    "display_order": 111,
+    "is_active": true,
+    "module_id": "vendor_general",
+    "help_text": "The vendor must notify you of personal data breaches without undue delay (GDPR Art.33(2)). Best practice is within 24-48 hours, giving you time to meet the 72-hour DPA notification deadline.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.6",
+    "module": "Vendor General",
+    "question_text": "Contract includes audit rights?",
+    "question_type": "yes_no",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.28(3)(h) – audits and inspections",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "Legal",
+    "assessment_types": [
+      "VENDOR"
+    ],
+    "display_order": 112,
+    "is_active": true,
+    "module_id": "vendor_general",
+    "help_text": "GDPR Art.28(3)(h) requires that the processor allows and contributes to audits and inspections. This should be an explicit contractual right, even if exercised through third-party audit reports.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.7",
+    "module": "Vendor General",
+    "question_text": "Data return/deletion on contract termination?",
+    "question_type": "select",
+    "options": [
+      "Yes – contractual",
+      "Partial",
+      "No",
+      "Not addressed"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Manual",
+    "legal_basis": "GDPR Art.28(3)(g) – deletion/return",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "DPO",
+    "assessment_types": [
+      "DPIA",
+      "VENDOR"
+    ],
+    "display_order": 113,
+    "is_active": true,
+    "module_id": "vendor_general",
+    "help_text": "Upon contract termination, the vendor must either return all personal data or delete it, at your choice. This should cover all copies including backups, with a defined timeline and certification of deletion.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.8",
+    "module": "Vendor AI",
+    "question_text": "Provider supplied Art.13 transparency info and instructions for use?",
+    "question_type": "select",
+    "options": [
+      "Yes – complete",
+      "Partial",
+      "No",
+      "N/A – not AI"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.13 – transparency to deployers; Art.26(1)",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "FRIA",
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 114,
+    "is_active": true,
+    "module_id": "vendor_ai_due_diligence",
+    "help_text": "AI Act Art.13 requires providers to supply deployers with information about the system's capabilities, limitations, intended purpose, performance metrics, and required human oversight measures.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.9",
+    "module": "Vendor AI",
+    "question_text": "Valid EU Declaration of Conformity / CE marking?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "No",
+      "Not required (non-EU)",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.16(f)-(h); Art.47; Art.48",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 115,
+    "is_active": true,
+    "module_id": "vendor_ai_due_diligence",
+    "help_text": "A valid EU Declaration of Conformity and CE marking indicate the provider has completed the required conformity assessment. For high-risk AI systems, this is mandatory before EU market placement.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.10",
+    "module": "Vendor AI",
+    "question_text": "Provider quality management system per Art.17?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.17 – QMS; Art.16(c)",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 116,
+    "is_active": true,
+    "module_id": "vendor_ai_due_diligence",
+    "help_text": "Providers of high-risk AI must maintain a quality management system covering development, testing, monitoring, and incident handling. Ask to review their QMS documentation or certification.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.11",
+    "module": "Vendor AI",
+    "question_text": "Provider post-market monitoring plan shared?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.72 – post-market monitoring",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "AI Governance Lead",
+    "assessment_types": [
+      "CONFORM",
+      "VENDOR"
+    ],
+    "display_order": 117,
+    "is_active": true,
+    "module_id": "vendor_ai_due_diligence",
+    "help_text": "Providers must implement post-market monitoring and share relevant findings with deployers. This includes performance degradation, new risks discovered, and safety/compliance updates.",
+    "suggestions": []
+  },
+  {
+    "id": "VR.12",
+    "module": "Vendor AI",
+    "question_text": "Provider contact and authorised representative details available?",
+    "question_type": "select",
+    "options": [
+      "Yes",
+      "No",
+      "Unknown"
+    ],
+    "logic_skip": null,
+    "prefill_source": "Vendor profile",
+    "legal_basis": "EU AI Act Art.16(a); Art.22 – authorised representative",
+    "assessment_layer": "Vendor-Specific",
+    "primary_persona": "Procurement",
+    "assessment_types": [
+      "VENDOR"
+    ],
+    "display_order": 118,
+    "is_active": true,
+    "module_id": "vendor_ai_due_diligence",
+    "help_text": "Non-EU providers must appoint an authorised representative in the EU. You need the provider's contact details and their EU representative's details for regulatory correspondence.",
+    "suggestions": []
+  }
+]

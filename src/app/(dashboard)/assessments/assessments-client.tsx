@@ -62,7 +62,10 @@ export function AssessmentsClient({
   const router = useRouter();
   const [showNew, setShowNew] = useState(false);
   const [newTitle, setNewTitle] = useState("");
-  const [selectedFramework, setSelectedFramework] = useState("");
+  const [selectedFramework, setSelectedFramework] = useState(() => {
+    const unified = frameworks.find((f) => f.slug === "complio-unified-v1");
+    return unified ? unified.id : "";
+  });
   const [selectedEntity, setSelectedEntity] = useState("");
   const [selectedSystem, setSelectedSystem] = useState("");
   const [selectedPA, setSelectedPA] = useState("");
@@ -126,7 +129,8 @@ export function AssessmentsClient({
 
   function resetNewForm() {
     setNewTitle("");
-    setSelectedFramework("");
+    const unified = frameworks.find((f) => f.slug === "complio-unified-v1");
+    setSelectedFramework(unified ? unified.id : "");
     setSelectedEntity("");
     setSelectedSystem("");
     setSelectedPA("");

@@ -4,15 +4,34 @@ export const VERSION = "1.0.0";
 
 export const ROLES = ["admin", "user"] as const;
 
-export const NAV_ITEMS = [
-  { label: "Dashboard", href: "/dashboard", icon: "LayoutDashboard" },
-  { label: "Entities", href: "/entities", icon: "Building2" },
-  { label: "Systems", href: "/systems", icon: "Server" },
-  { label: "Data Mapping", href: "/mapping", icon: "GitBranch" },
-  { label: "RoPA", href: "/ropa", icon: "FileText" },
-  { label: "Assessments", href: "/assessments", icon: "ShieldCheck" },
-  { label: "Action Items", href: "/actions", icon: "CheckSquare" },
-] as const;
+export type ModuleId = "entities" | "systems" | "mapping" | "ropa" | "assessments" | "actions";
+
+export const NAV_ITEMS: readonly NavItem[] = [
+  { label: "Dashboard", href: "/dashboard", icon: "LayoutDashboard", module: null },
+  { label: "Entities", href: "/entities", icon: "Building2", module: "entities" },
+  { label: "Systems", href: "/systems", icon: "Server", module: "systems" },
+  { label: "Data Mapping", href: "/mapping", icon: "GitBranch", module: "mapping" },
+  { label: "RoPA", href: "/ropa", icon: "FileText", module: "ropa" },
+  { label: "Assessments", href: "/assessments", icon: "ShieldCheck", module: "assessments" },
+  { label: "Action Items", href: "/actions", icon: "CheckSquare", module: "actions" },
+  { label: "Settings", href: "/settings", icon: "Settings", module: null },
+];
+
+type NavItem = {
+  label: string;
+  href: string;
+  icon: string;
+  module: ModuleId | null;
+};
+
+export const MODULE_DEFINITIONS: Record<ModuleId, { label: string; description: string }> = {
+  entities: { label: "Entities", description: "Legal entity register, hierarchy, DPO tracking" },
+  systems: { label: "Systems", description: "IT system register, tiers, vendor tracking" },
+  mapping: { label: "Data Mapping", description: "Processing activities grouped by function" },
+  ropa: { label: "RoPA", description: "Records of Processing Activities dashboard" },
+  assessments: { label: "Assessments", description: "DPIA, FRIA, TIA, LIA, and risk assessments" },
+  actions: { label: "Action Items", description: "Follow-up actions from assessments" },
+};
 
 export const ENTITY_STATUSES = ["Active", "Dormant", "Winding Down"] as const;
 export const DPO_REQUIREMENTS = ["Mandatory", "Conditional", "Not Required", "Not Assessed"] as const;

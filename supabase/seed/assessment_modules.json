@@ -1,0 +1,172 @@
+[
+  {
+    "id": "entry",
+    "name": "Entry & Triage",
+    "layer": "0",
+    "trigger_condition": "Always",
+    "assessment_outputs": [
+      "ALL"
+    ],
+    "legal_driver": "General – scoping/triage",
+    "display_order": 1
+  },
+  {
+    "id": "common_nucleus",
+    "name": "Common Nucleus",
+    "layer": "1",
+    "trigger_condition": "Always",
+    "assessment_outputs": [
+      "ALL"
+    ],
+    "legal_driver": null,
+    "display_order": 2
+  },
+  {
+    "id": "ai_scope_classification",
+    "name": "AI Scope & Classification",
+    "layer": "2A",
+    "trigger_condition": "E4 = Yes",
+    "assessment_outputs": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "legal_driver": null,
+    "display_order": 3
+  },
+  {
+    "id": "ai_prohibited_practices",
+    "name": "AI Prohibited Practices",
+    "layer": "2A",
+    "trigger_condition": "E4 = Yes",
+    "assessment_outputs": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "legal_driver": null,
+    "display_order": 4
+  },
+  {
+    "id": "ai_high_risk_classification",
+    "name": "AI High-Risk Classification",
+    "layer": "2A",
+    "trigger_condition": "E4 = Yes",
+    "assessment_outputs": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "legal_driver": null,
+    "display_order": 5
+  },
+  {
+    "id": "ai_limited_risk_gpai",
+    "name": "AI Limited Risk / GPAI",
+    "layer": "2A",
+    "trigger_condition": "E4 = Yes",
+    "assessment_outputs": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "legal_driver": null,
+    "display_order": 6
+  },
+  {
+    "id": "fria",
+    "name": "FRIA",
+    "layer": "2B",
+    "trigger_condition": "High-risk AI classification",
+    "assessment_outputs": [
+      "FRIA"
+    ],
+    "legal_driver": "EU AI Act Art.27(1)(a); Art.13",
+    "display_order": 7
+  },
+  {
+    "id": "ai_data_governance",
+    "name": "AI Data Governance",
+    "layer": "2C",
+    "trigger_condition": "High-risk AI classification",
+    "assessment_outputs": [
+      "FRIA",
+      "CONFORM"
+    ],
+    "legal_driver": null,
+    "display_order": 8
+  },
+  {
+    "id": "conformity_assessment",
+    "name": "Conformity Assessment",
+    "layer": "2D",
+    "trigger_condition": "High-risk AI classification",
+    "assessment_outputs": [
+      "CONFORM"
+    ],
+    "legal_driver": null,
+    "display_order": 9
+  },
+  {
+    "id": "dpia",
+    "name": "DPIA",
+    "layer": "2E",
+    "trigger_condition": "E2 = Yes",
+    "assessment_outputs": [
+      "DPIA"
+    ],
+    "legal_driver": null,
+    "display_order": 10
+  },
+  {
+    "id": "tia",
+    "name": "TIA",
+    "layer": "2F",
+    "trigger_condition": "E3 includes cross-border transfer outside EU/EEA",
+    "assessment_outputs": [
+      "TIA"
+    ],
+    "legal_driver": "GDPR Art.44 – general principle for transfers",
+    "display_order": 11
+  },
+  {
+    "id": "lia",
+    "name": "LIA",
+    "layer": "2G",
+    "trigger_condition": "DP.3 includes Legitimate Interest",
+    "assessment_outputs": [
+      "LIA"
+    ],
+    "legal_driver": "GDPR Art.6(1)(f) – purpose test; Recitals 47-49",
+    "display_order": 12
+  },
+  {
+    "id": "cybersecurity",
+    "name": "Cybersecurity",
+    "layer": "2H",
+    "trigger_condition": "E8 = Yes OR E4 = Yes",
+    "assessment_outputs": [
+      "CYBER"
+    ],
+    "legal_driver": null,
+    "display_order": 13
+  },
+  {
+    "id": "vendor_general",
+    "name": "Vendor General",
+    "layer": "2I",
+    "trigger_condition": "E7 = Yes",
+    "assessment_outputs": [
+      "VENDOR"
+    ],
+    "legal_driver": "GDPR Art.28(3); due diligence",
+    "display_order": 14
+  },
+  {
+    "id": "vendor_ai_due_diligence",
+    "name": "Vendor AI Due Diligence",
+    "layer": "2I",
+    "trigger_condition": "E7 = Yes AND E4 = Yes",
+    "assessment_outputs": [
+      "VENDOR"
+    ],
+    "legal_driver": null,
+    "display_order": 15
+  }
+]
